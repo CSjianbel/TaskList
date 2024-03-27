@@ -32,9 +32,10 @@ const register = async (req, res) => {
 
     res.status(200).json({ user });
   } catch (err) {
-    console.error(`Failed to register user ${err}`);
-    res.status(500).json({
-      error: err,
+    const message = `Failed to list tasks ${err}`;
+    console.error(message);
+    res.status(400).json({
+      message: message,
     });
   }
 };
@@ -84,13 +85,13 @@ const login = async (req, res) => {
 
     res.status(200).json({ token });
   } catch (err) {
-    console.error(`Failed to login user ${err}`);
-    res.status(500).json({
-      error: err,
+    const message = `Failed to list tasks ${err}`;
+    console.error(message);
+    res.status(400).json({
+      message: message,
     });
   }
 };
 
 const AuthController = { login, register };
-
 export default AuthController;
