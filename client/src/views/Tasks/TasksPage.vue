@@ -1,0 +1,9 @@
+<template>
+  <h1>Tasks Page</h1>
+</template>
+
+<script>
+export default {
+  name: "TasksPage",
+};
+</script>
