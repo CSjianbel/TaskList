@@ -19,6 +19,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+import { authRouter } from "./routers/index.js";
+
+app.use("/auth", authRouter);
+
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });

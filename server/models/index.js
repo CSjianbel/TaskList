@@ -24,4 +24,6 @@ db.sequelize = sequelize;
 db.users = user(sequelize, Sequelize);
 db.tasks = task(sequelize, Sequelize);
 
+db.tasks.belongsTo(db.users);
+
 export default db;
