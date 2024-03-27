@@ -19,9 +19,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-import { authRouter } from "./routers/index.js";
+import { authMiddleware } from "./middlewares/index.js";
+import { authRouter, taskRouter } from "./routers/index.js";
 
 app.use("/auth", authRouter);
+app.use("/task", authMiddleware, taskRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
