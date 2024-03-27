@@ -5,12 +5,6 @@ import { JWT_SECRET } from "../config/index.js";
 
 const User = db.users;
 
-const authenticated = async (_, res) => {
-  res.send(200).json({
-    authenticatd: true,
-  });
-};
-
 const register = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -99,8 +93,7 @@ const login = async (req, res) => {
       }
     );
 
-    res.cookie("token", token, { httpOnly: true });
-    res.status(200).json({ user });
+    res.status(200).json({ token });
   } catch (err) {
     const message = `Failed to login user ${err.message}`;
     console.error(message);
@@ -110,5 +103,5 @@ const login = async (req, res) => {
   }
 };
 
-const AuthController = { login, register, authenticated };
+const AuthController = { login, register };
 export default AuthController;
