@@ -80,6 +80,9 @@ const login = async (req, res) => {
     res.status(200).json({ token });
   } catch (err) {
     console.error(`Failed to login user ${err}`);
+    res.status(500).json({
+      error: err,
+    });
   }
 };
 
