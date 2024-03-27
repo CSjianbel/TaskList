@@ -5,6 +5,12 @@ import { JWT_SECRET } from "../config/index.js";
 
 const User = db.users;
 
+const authenticated = async (_, res) => {
+  res.send(200).json({
+    authenticatd: true,
+  });
+};
+
 const register = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -104,5 +110,5 @@ const login = async (req, res) => {
   }
 };
 
-const AuthController = { login, register };
+const AuthController = { login, register, authenticated };
 export default AuthController;
