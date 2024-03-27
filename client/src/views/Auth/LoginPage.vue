@@ -17,7 +17,7 @@ import Header from "../components/Header.vue";
           >
             Login to your account
           </h1>
-          <form class="space-y-4 md:space-y-6" action="#">
+          <form class="space-y-4 md:space-y-6" @submit.prevent="login">
             <div>
               <label
                 for="username"
@@ -25,6 +25,7 @@ import Header from "../components/Header.vue";
                 >Username</label
               >
               <input
+                v-model="username"
                 type="text"
                 name="username"
                 id="username"
@@ -40,6 +41,7 @@ import Header from "../components/Header.vue";
                 >Password</label
               >
               <input
+                v-model="password"
                 type="password"
                 name="password"
                 id="password"
@@ -70,7 +72,36 @@ import Header from "../components/Header.vue";
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Login Page",
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await axios.post("http://localhost:3000/auth/login", {
+          username: this.username,
+          password: this.password,
+        });
+
+        if (response.status !== 200) {
+          throw new Error("Failed to register for an account");
+        }
+
+        localStorage.setItem("token", response.data.token);
+
+        this.$router.push("/");
+      } catch (err) {
+        this.$toast.error(err.message, { position: "top-right" });
+        console.error(err.message);
+      }
+    },
+  },
 };
 </script>
