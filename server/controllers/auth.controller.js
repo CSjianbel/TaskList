@@ -93,7 +93,8 @@ const login = async (req, res) => {
       }
     );
 
-    res.status(200).json({ token });
+    res.cookie("token", token, { httpOnly: true });
+    res.status(200).json({ user });
   } catch (err) {
     const message = `Failed to login user ${err.message}`;
     console.error(message);

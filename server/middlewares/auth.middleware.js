@@ -5,21 +5,15 @@ const User = db.users;
 
 const authMiddleware = async (req, res, next) => {
   try {
-    console.log(req.headers.authorization);
-    if (
-      !req.headers.authorization ||
-      !req.headers.authorization.startsWith("Bearer ")
-    ) {
-      console.log("sammy");
+    if (!req.cookies.token) {
       throw new Error("Unauthorized");
     }
 
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.cookies.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ where: { id: decoded.userId } });
 
     if (!user) {
-      console.log("here");
       throw new Error("User not found");
     }
 
