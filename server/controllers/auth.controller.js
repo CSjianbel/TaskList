@@ -1,6 +1,7 @@
 import { hash, compare } from "bcrypt";
 import jwt from "jsonwebtoken";
 import db from "../models/index.js";
+import { JWT_SECRET } from "../config/index.js";
 
 const User = db.users;
 
@@ -73,9 +74,13 @@ const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ userId: user.id, username: username }, "secret", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user.id, username: username },
+      JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     res.status(200).json({ token });
   } catch (err) {

@@ -10,4 +10,5 @@ export const {
   DB_PASSWORD,
   DB_HOST,
   DB_DIALECT,
+  JWT_SECRET,
 } = process.env;
