@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import "./style.css";
 import App from "./App.vue";
+import Toaster from "@meforma/vue-toaster";
 
 import {
   TasksPage,
@@ -36,4 +37,4 @@ const router = createRouter({
   ],
 });
 
-createApp(App).use(router).mount("#app");
+createApp(App).use(router).use(Toaster).mount("#app");

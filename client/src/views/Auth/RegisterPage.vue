@@ -17,7 +17,7 @@ import Header from "../components/Header.vue";
           >
             Register for an account
           </h1>
-          <form class="space-y-4 md:space-y-6" action="#">
+          <form class="space-y-4 md:space-y-6" @submit.prevent="register">
             <div>
               <label
                 for="username"
@@ -25,6 +25,7 @@ import Header from "../components/Header.vue";
                 >Username</label
               >
               <input
+                v-model="username"
                 type="text"
                 name="username"
                 id="username"
@@ -40,6 +41,7 @@ import Header from "../components/Header.vue";
                 >Password</label
               >
               <input
+                v-model="password"
                 type="password"
                 name="password"
                 id="password"
@@ -55,6 +57,7 @@ import Header from "../components/Header.vue";
                 >Confirm Password</label
               >
               <input
+                v-model="confirmPassword"
                 type="password"
                 name="confirm-password"
                 id="confirm-password"
@@ -85,7 +88,44 @@ import Header from "../components/Header.vue";
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Register Page",
+  data() {
+    return {
+      username: "",
+      password: "",
+      confirmPassword: "",
+    };
+  },
+  methods: {
+    async register() {
+      try {
+        if (this.password !== this.confirmPassword) {
+          this.password = "";
+          this.confirmPassword = "";
+          throw new Error("Password's doesn't match! :<");
+        }
+
+        const response = await axios.post(
+          "http://localhost:3000/auth/register/",
+          {
+            username: this.username,
+            password: this.password,
+          }
+        );
+
+        if (response.status !== 200) {
+          throw new Error("Failed to register for an account");
+        }
+
+        this.$router.push("/login");
+      } catch (err) {
+        this.$toast.error(err.message, { position: "top-right" });
+        console.error(err.message);
+      }
+    },
+  },
 };
 </script>
