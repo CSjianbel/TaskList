@@ -1,16 +1,13 @@
+<script setup>
+import Header from "../components/Header.vue";
+</script>
+
 <template>
   <section class="bg-gray-50 dark:bg-gray-900">
     <div
       class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
     >
-      <h1
-        class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
-      >
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r to-blue-800 from-sky-400"
-          >TaskList</span
-        >
-      </h1>
+      <Header />
       <div
         class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
       >
