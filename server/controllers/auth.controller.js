@@ -25,6 +25,16 @@ const register = async (req, res) => {
     // Hash password
     const hashedPass = await hash(password, 10);
 
+    const existingUser = await User.findOne({
+      where: {
+        username: username,
+      },
+    });
+
+    if (existingUser) {
+      throw new Error("username already exists");
+    }
+
     const user = await User.create({
       username: username,
       password: hashedPass,
@@ -32,7 +42,7 @@ const register = async (req, res) => {
 
     res.status(200).json({ user });
   } catch (err) {
-    const message = `Failed to list tasks ${err}`;
+    const message = `Failed to register user ${err.message}`;
     console.error(message);
     res.status(400).json({
       message: message,
@@ -85,7 +95,7 @@ const login = async (req, res) => {
 
     res.status(200).json({ token });
   } catch (err) {
-    const message = `Failed to list tasks ${err}`;
+    const message = `Failed to login user ${err.message}`;
     console.error(message);
     res.status(400).json({
       message: message,
