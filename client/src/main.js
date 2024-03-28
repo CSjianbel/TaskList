@@ -5,6 +5,10 @@ import App from "./App.vue";
 import Toaster from "@meforma/vue-toaster";
 import axios from "axios";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 import {
   TasksPage,
   LoginPage,
@@ -65,4 +69,10 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 
-createApp(App).use(router).use(Toaster).mount("#app");
+library.add(faUserSecret);
+
+createApp(App)
+  .use(router)
+  .use(Toaster)
+  .component("font-awesome-icon", FontAwesomeIcon)
+  .mount("#app");

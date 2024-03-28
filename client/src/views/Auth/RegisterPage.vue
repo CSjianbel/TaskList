@@ -5,7 +5,7 @@ import Header from "../components/Header.vue";
 <template>
   <section class="bg-gray-50 dark:bg-gray-900">
     <div
-      class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+      class="flex flex-col items-center justify-center mx-auto md:h-screen lg:py-0"
     >
       <Header />
       <div
