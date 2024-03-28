@@ -123,8 +123,8 @@ export default {
         this.$router.push("/login");
       } catch (err) {
         let message = err.message;
-        if (err.response) {
-          message = err.response.message;
+        if (err.response.data.message) {
+          message = err.response.data.message;
         }
         this.$toast.error(message, { position: "top-right" });
       }

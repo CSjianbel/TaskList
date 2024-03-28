@@ -61,7 +61,7 @@ export default {
         });
       } catch (err) {
         let message = err.message;
-        if (err.response) {
+        if (err.response.data.message) {
           message = err.response.message;
         }
         this.$toast.error(message, { position: "top-right" });
