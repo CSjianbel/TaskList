@@ -24,6 +24,12 @@
 import axios from "axios";
 
 export default {
+  props: {
+    updateTasks: {
+      type: Function,
+      required: true,
+    },
+  },
   data() {
     return {
       name: "",
@@ -48,7 +54,11 @@ export default {
           throw new Error("Failed to register for an account");
         }
 
-        this.$router.go();
+        this.updateTasks(response.data.task);
+        this.name = "";
+        this.$toast.success("Successfully added task! ^_^", {
+          position: "top-right",
+        });
       } catch (err) {
         this.$toast.error(err.message, { position: "top-right" });
         console.error(err.message);

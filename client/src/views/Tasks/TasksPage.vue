@@ -16,7 +16,7 @@ import AddTask from "../components/AddTask.vue";
     </div>
     <div class="flex flex-col items-center mx-auto md:h-screen lg:py-0">
       <Header />
-      <AddTask />
+      <AddTask :updateTasks="updateTasks" />
 
       <div class="m-6 overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -156,6 +156,9 @@ export default {
       localStorage.clear();
 
       this.$router.push("/login");
+    },
+    updateTasks(task) {
+      this.tasks.push(task);
     },
   },
   async mounted() {
