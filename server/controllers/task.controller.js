@@ -75,17 +75,12 @@ const list = async (req, res) => {
 
 const update = async (req, res) => {
   try {
+    console.log(req.body);
     const { id, name, status } = req.body;
 
     if (!name) {
       return res.status(400).json({
         message: "Missing parameter: {name}",
-      });
-    }
-
-    if (!status) {
-      return res.status(400).json({
-        message: "Missing parameter: {status}",
       });
     }
 
