@@ -20,11 +20,13 @@ import AddTask from "../components/AddTask.vue";
 
       <div class="m-6 overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-          <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+          <thead
+            class="text-xs text-gray-800 uppercase bg-gradient-to-r to-sky-500 from-blue-600"
+          >
             <tr>
-              <th scope="col" class="px-6 py-3 w-1/4">Task</th>
-              <th scope="col" class="px-6 py-3 w-1/4">Status</th>
-              <th scope="col" class="px-6 py-3 w-1/4">Action</th>
+              <th scope="col" class="px-6 py-3 w-1/4 text-white">Task</th>
+              <th scope="col" class="px-6 py-3 w-1/4 text-white">Status</th>
+              <th scope="col" class="px-6 py-3 w-1/4 text-white">Action</th>
             </tr>
           </thead>
           <tbody>
