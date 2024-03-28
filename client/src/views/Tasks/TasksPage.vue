@@ -105,8 +105,11 @@ export default {
 
         this.tasks = response.data.tasks;
       } catch (err) {
-        this.$toast.error(err.message, { position: "top-right" });
-        console.error(err.message);
+        let message = err.message;
+        if (err.response) {
+          message = err.response.message;
+        }
+        this.$toast.error(message, { position: "top-right" });
       }
     },
     async saveChanges(task, index) {
@@ -131,8 +134,11 @@ export default {
           position: "top-right",
         });
       } catch (err) {
-        this.$toast.error(err.response.message, { position: "top-right" });
-        console.error(err.response.message);
+        let message = err.message;
+        if (err.response) {
+          message = err.response.message;
+        }
+        this.$toast.error(message, { position: "top-right" });
       }
     },
     async deleteTask(task, index) {
@@ -148,8 +154,11 @@ export default {
           position: "top-right",
         });
       } catch (err) {
-        this.$toast.error(err.response.message, { position: "top-right" });
-        console.error(err.response.message);
+        let message = err.message;
+        if (err.response) {
+          message = err.response.message;
+        }
+        this.$toast.error(message, { position: "top-right" });
       }
     },
     logoutUser() {

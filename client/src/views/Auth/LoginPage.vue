@@ -98,8 +98,11 @@ export default {
 
         this.$router.push("/");
       } catch (err) {
-        this.$toast.error(err.message, { position: "top-right" });
-        console.error(err.message);
+        let message = err.message;
+        if (err.response) {
+          message = err.response.message;
+        }
+        this.$toast.error(message, { position: "top-right" });
       }
     },
   },
