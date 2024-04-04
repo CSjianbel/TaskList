@@ -5,14 +5,11 @@ const User = db.users;
 
 const authMiddleware = async (req, res, next) => {
   try {
-    if (
-      !req.headers.authorization ||
-      !req.headers.authorization.startsWith("Bearer ")
-    ) {
-      throw new Error("Unauthorized");
+    if (!req.cookies.jwt) {
+      throw new Error("Invalid request!");
     }
 
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.cookies.jwt;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ where: { id: decoded.userId } });
 
@@ -24,7 +21,7 @@ const authMiddleware = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: `Unauthorized: ${error.message}` });
   }
 };
 
