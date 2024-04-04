@@ -94,8 +94,6 @@ export default {
           throw new Error("Failed to register for an account");
         }
 
-        localStorage.setItem("token", response.data.token);
-
         this.$router.push("/");
       } catch (err) {
         let message = err.message;

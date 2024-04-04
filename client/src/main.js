@@ -16,6 +16,8 @@ import {
   NotFoundPage,
 } from "./views/index.js";
 
+axios.defaults.withCredentials = true;
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -49,11 +51,12 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     let isAuthenticated = false;
     try {
-      await axios.get("http://localhost:3000/task/", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get("http://localhost:3000/auth/");
+
+      if (response.status !== 200) {
+        throw new Error("Failed to register for an account");
+      }
+
       isAuthenticated = true;
     } catch (err) {
       isAuthenticated = false;

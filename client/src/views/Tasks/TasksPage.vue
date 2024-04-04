@@ -97,11 +97,7 @@ export default {
   methods: {
     async fetchTasks() {
       try {
-        const response = await axios.get("http://localhost:3000/task", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get("http://localhost:3000/task");
 
         this.tasks = response.data.tasks;
       } catch (err) {
@@ -120,13 +116,7 @@ export default {
             id: task.id,
             name: task.name,
             status: task.status,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+          });
 
         this.tasks[index] = response.data.updatedTask;
 
@@ -143,11 +133,7 @@ export default {
     },
     async deleteTask(task, index) {
       try {
-        await axios.delete(`http://localhost:3000/task/${task.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        await axios.delete(`http://localhost:3000/task/${task.id}`);
 
         this.tasks.splice(index, 1);
         this.$toast.success("Successfully deleted task. ^_^", {
@@ -161,10 +147,22 @@ export default {
         this.$toast.error(message, { position: "top-right" });
       }
     },
-    logoutUser() {
-      localStorage.clear();
+    async logoutUser() {
+      try {
+        const response = await axios.get("http://localhost:3000/auth/logout");
 
-      this.$router.push("/login");
+        if (response.status !== 200) {
+          throw new Error("Failed to logout user");
+        }
+
+        this.$router.push("/login");
+      } catch (err) {
+        let message = err.message;
+        if (err.response.data.message) {
+          message = err.response.data.message;
+        }
+        this.$toast.error(message, { position: "top-right" });
+      }
     },
     updateTasks(task) {
       this.tasks.push(task);
