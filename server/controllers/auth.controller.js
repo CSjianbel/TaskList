@@ -93,7 +93,14 @@ const login = async (req, res) => {
       }
     );
 
-    res.status(200).json({ token });
+    res.cookie('jwt', token, {
+      httpOnly: true, sameSite: 'None', secure: true,
+      maxAge: 24 * 60 * 60 * 1000
+    });
+
+    res.status(200).json({ 
+      message: "Successfully logged in!" 
+    });
   } catch (err) {
     const message = `Failed to login user ${err.message}`;
     console.error(message);
@@ -103,5 +110,20 @@ const login = async (req, res) => {
   }
 };
 
-const AuthController = { login, register };
+const logout = (req, res) => {
+  try {
+    res.clearCookie('jwt');
+    res.status(200).json({
+      message: "Successfully logged out!"
+    });
+  } catch (err) {
+    const message = `Failed to logout user ${err.message}`;
+    console.error(message);
+    res.status(400).json({
+      message: message,
+    });
+  }
+}
+
+const AuthController = { login, register, logout };
 export default AuthController;

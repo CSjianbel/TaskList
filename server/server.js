@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
 import db from "./models/index.js";
 
 import { PORT } from "./config/index.js";
@@ -17,6 +19,7 @@ db.sequelize
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 import { authMiddleware } from "./middlewares/index.js";
