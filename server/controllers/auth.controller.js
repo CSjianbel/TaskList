@@ -8,7 +8,6 @@ const User = db.users;
 const register = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log({ username, password });
 
     if (!username) {
       return res.status(400).json({
